@@ -77,6 +77,10 @@ static void benchCall( std::function< void() > func1, std::function< void() > fu
 
 int main()
 {
+    // NOTE: if on windows, make sure to either 
+    // 1. adjust stack size so this doesn't blow (stack size is smaller on windows)
+    // 2. reduce intCount
+    
     std::vector< int8_t > _int8N;
     std::vector< Int > _int8C;
 
