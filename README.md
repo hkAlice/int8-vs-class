@@ -9,5 +9,5 @@ Small benchmark test to see how much of a difference on x86 it'd make.
 None of this is intended for production (please!)
 
 ## Trivia
-*There's a bug on the Int class' modulo operator. Parity can't be reached if using BenchInt::benchSimpleMod
-*This might blow up on Wndows/MSVC++. Reduce intCount so it doesn't overflow the stack.
+* There's a bug on the Int class' modulo operator. Parity can't be reached if using BenchInt::benchSimpleMod
+* This might blow up on Wndows/MSVC++. Reduce intCount so it doesn't overflow the stack.
