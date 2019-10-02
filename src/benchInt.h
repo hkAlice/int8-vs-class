@@ -120,7 +120,7 @@ static void benchCmpVec( const std::vector< T >& iVec1, const std::vector< T2 >&
         _parity = iVec1[i] == iVec2[i];
         if( !_parity )
         {
-        	PARITY_FAILED_PREV = true;
+            PARITY_FAILED_PREV = true;
             std::cout << "Failed to match parity (" + std::to_string( iVec1[i] ) + ", " + std::to_string( iVec2[i] ) + ")\n";
             if( assertParity )
                 assert( _parity );
