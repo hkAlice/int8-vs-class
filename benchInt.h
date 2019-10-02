@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <cassert>
 
+namespace BenchInt
+{
+
 static bool PARITY_FAILED_PREV = false;
 
 template< typename T >
@@ -135,4 +138,6 @@ static void benchCmpVec( const std::vector< T >& iVec1, const std::vector< T2 >&
             break;
         }
     }
+}
+
 }
