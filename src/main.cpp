@@ -102,7 +102,7 @@ int main()
 
     for( int i = 0; i < intCount; ++i )
     {
-        _int8C.push_back( { 0 } );
+        _int8C.push_back( 0 );
     }
 
     auto t4 = std::chrono::system_clock::now();
@@ -122,15 +122,28 @@ int main()
 
     BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
 
-    auto _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 8 ) );
-    auto _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 8 ) );
+    auto _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 1024 ) );
+    auto _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 1024 ) );
+
+    benchCall< int8_t, Int >( [&](){ BenchInt::benchShellSort< int8_t >( &_slice_int8N.data()[0], _slice_int8N.size() - 1 ); }, 
+                              [&](){ BenchInt::benchShellSort< Int >( &_slice_int8C.data()[0], _slice_int8C.size() - 1 ); }, 
+                              "benchShellSort" );
+
+    BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
+
+    _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 4 ) );
+    _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 4 ) );
 
     benchCall< int8_t, Int >( [&](){ BenchInt::benchBubbleSort< int8_t >( _slice_int8N ); }, 
                               [&](){ BenchInt::benchBubbleSort< Int >( _slice_int8C ); }, 
                               "benchBubbleSort (SLICED)" );
 
-    /*benchCall< int8_t, Int >( [&](){ BenchInt::benchQuicksort< int8_t >( &_slice_int8N.data()[0], _slice_int8N.size() - 1 ); }, 
-                              [&](){ BenchInt::benchQuicksort< Int >( &_slice_int8C.data()[0], _slice_int8C.size() - 1 ); }, "benchQuicksort (SLICED)" );
-    */
+    benchCall< int8_t, Int >( [&](){ BenchInt::benchSimpleMod< int8_t >( _int8N ); }, 
+                              [&](){ BenchInt::benchSimpleMod< Int >( _int8C ); }, 
+                              "benchSimpleMod" );
+
+    // this will throw assert due to modulo operator bug in Int class
+    BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C, false );
+    
     return 0;
 }

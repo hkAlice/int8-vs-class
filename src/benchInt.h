@@ -73,6 +73,26 @@ static void benchBubbleSort( std::vector< T >& iVec )
         }
     }
 }
+
+template< typename T >
+__attribute__((__used__))
+static void benchShellSort( T* iVec, size_t len )
+{
+    int h, i, j;
+    T t;
+    for( h = len; h /= 2; )
+    {
+        for( i = h; i < len; i++ )
+        {
+            t = iVec[i];
+            for( j = i; j >= h && t < iVec[j - h]; j -= h )
+            {
+                iVec[j] = iVec[j - h];
+            }
+            iVec[j] = t;
+        }
+    }
+}
  
 template< typename T >
 __attribute__((__used__))
