@@ -9,7 +9,7 @@
 #include <cassert>
 #include <functional>
 
-#include "../libs/termcolor/termcolor.hpp"
+#include "../libs/termcolor/include/termcolor/termcolor.hpp"
 
 #include "Int.h"
 #include "benchInt.h"
