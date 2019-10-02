@@ -73,41 +73,30 @@ static void benchBubbleSort( std::vector< T >& iVec )
         }
     }
 }
-
+ 
 template< typename T >
 __attribute__((__used__))
-static void benchQuicksort( std::vector< T >& iVec, size_t head, size_t tail )
+static void benchQuicksort( T* iVec, size_t len )
 {
-    std::function< size_t ( std::vector< T >&, size_t, size_t )> pivot = []( std::vector< T >& iVec, size_t pHead, size_t pTail )
+    if (len < 2) return;
+ 
+    T pivot = iVec[len / 2];
+     
+    int i, j;
+    for( i = 0, j = len - 1; ; i++, j-- )
     {
-        T p = pHead;
-        T pivotElement = iVec[pHead];
-
-        for( int i = pHead + 1 ; i <= pTail; i++ )
-        {
-            if( iVec[i] <= pivotElement )
-            {
-                p++;
-                std::swap( iVec[i], iVec[p] );
-            }
-        }
-
-        std::swap( iVec[p], iVec[pHead] );
-
-        return p;
-    };
-
-    size_t pivotElement;
-
-    if( head < tail )
-    {
-        pivotElement = pivot( iVec, head, tail );
-        benchQuicksort( iVec, head, pivotElement - 1 );
-        benchQuicksort( iVec, pivotElement + 1, tail );
-
+        while (iVec[i] < pivot) i++;
+        while (iVec[j] > pivot) j--;
+     
+        if (i >= j) break;
+     
+        T temp  = iVec[i];
+        iVec[i] = iVec[j];
+        iVec[j] = temp;
     }
-
-
+     
+    benchQuicksort( iVec, i );
+    benchQuicksort( iVec + i, len - i );
 }
 
 

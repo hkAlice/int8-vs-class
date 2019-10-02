@@ -7,8 +7,9 @@
 #include <chrono>
 #include <tuple>
 #include <cassert>
+#include <functional>
 
-#include "libs/termcolor/termcolor.hpp"
+#include "../libs/termcolor/termcolor.hpp"
 
 #include "Int.h"
 #include "benchInt.h"
@@ -113,13 +114,13 @@ int main()
                               "benchSimpleAdd" );
 
     // you wouldn't cheat an int, would you?
-    benchCmpVec< int8_t, Int >( _int8N, _int8C );
+    BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
 
     benchCall< int8_t, Int >( [&](){ BenchInt::benchMulAhead< int8_t >( _int8N ); }, 
                               [&](){ BenchInt::benchMulAhead< Int >( _int8C ); }, 
                               "benchMulAhead" );
 
-    benchCmpVec< int8_t, Int >( _int8N, _int8C );
+    BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
 
     auto _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 8 ) );
     auto _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 8 ) );
@@ -128,7 +129,8 @@ int main()
                               [&](){ BenchInt::benchBubbleSort< Int >( _slice_int8C ); }, 
                               "benchBubbleSort (SLICED)" );
 
-    //benchCall< int8_t, Int >( [&](){ benchQuicksort< int8_t >( _slice_int8N, 0, _slice_int8N.size() - 1 ); }, [&](){ benchQuicksort< Int >( _slice_int8C, 0, _slice_int8C.size() - 1 ); }, "benchQuicksort (SLICED)" );
-
+    /*benchCall< int8_t, Int >( [&](){ BenchInt::benchQuicksort< int8_t >( &_slice_int8N.data()[0], _slice_int8N.size() - 1 ); }, 
+                              [&](){ BenchInt::benchQuicksort< Int >( &_slice_int8C.data()[0], _slice_int8C.size() - 1 ); }, "benchQuicksort (SLICED)" );
+    */
     return 0;
 }
