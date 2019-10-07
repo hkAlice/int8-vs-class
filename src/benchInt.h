@@ -24,7 +24,7 @@ static void benchSimpleAdd( std::vector< T >& iVec )
 
     // ^use of + operator instead of += and ++ is intentional^
 
-    for( T& vi : std::move( iVec ) )
+    for( T& vi : iVec )
     {
         //std::cout << std::to_string(idxOverflow) + " | ";
         idxOverflow = idxOverflow + coeff;
@@ -38,7 +38,7 @@ static void benchSimpleMod( std::vector< T >& iVec )
 {
     T coeff = { 8 };
 
-    for( T& vi : std::move( iVec ) )
+    for( T& vi : iVec )
     {
         vi = vi % coeff;
     }

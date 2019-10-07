@@ -82,32 +82,10 @@ int main()
     // 1. adjust stack size so this doesn't blow (stack size is smaller on windows)
     // 2. reduce intCount
 
-    std::vector< int8_t > _int8N;
-    std::vector< Int > _int8C;
-
     const size_t intCount = 4096 * 4096 * 4;
 
-    auto t1 = std::chrono::system_clock::now();
-
-    for( int i = 0; i < intCount; ++i )
-    {
-        _int8N.push_back( 0 );
-    }
-
-    auto t2 = std::chrono::system_clock::now();
-    
-    std::cout << "Finished initializing ints(int8_t)" << getPrettyTime( t1, t2 ) + "\n";
-
-    auto t3 = std::chrono::system_clock::now();
-
-    for( int i = 0; i < intCount; ++i )
-    {
-        _int8C.push_back( 0 );
-    }
-
-    auto t4 = std::chrono::system_clock::now();
-
-    std::cout << "Finished initializing ints(insane)" << getPrettyTime( t3, t4 ) << getPercentageDiff( t1, t2, t3, t4 ) + "\n";
+    std::vector< int8_t > _int8N( intCount, 0 );
+    std::vector< Int > _int8C( intCount, 0 );
 
     benchCall< int8_t, Int >( [&](){ BenchInt::benchSimpleAdd< int8_t >( _int8N ); }, 
                               [&](){ BenchInt::benchSimpleAdd< Int >( _int8C ); }, 

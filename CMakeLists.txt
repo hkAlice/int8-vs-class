@@ -1,11 +1,9 @@
 cmake_minimum_required( VERSION 3.9.4 )
 
-#include( "cmake/compiler.cmake" )
-
 project( intc_p )
 
 if( MSVC OR MSYS OR MINGW )
-    set(CMAKE_CXX_FLAGS "/O3 /std:c++17")
+  set(CMAKE_CXX_FLAGS "/O2 /std:c++17")
 else()
   set(CMAKE_CXX_FLAGS "-march=native -std=c++17")
 endif()
