@@ -84,12 +84,12 @@ static void benchShellSort( T* iVec, size_t len )
     {
         for( i = h; i < len; i++ )
         {
-            t = iVec[i];
+            t = std::move( iVec[i] );
             for( j = i; j >= h && t < iVec[j - h]; j -= h )
             {
                 iVec[j] = iVec[j - h];
             }
-            iVec[j] = t;
+            iVec[j] = std::move( t );
         }
     }
 }

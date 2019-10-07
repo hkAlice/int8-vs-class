@@ -87,6 +87,7 @@ int main()
     std::vector< int8_t > _int8N( intCount, 0 );
     std::vector< Int > _int8C( intCount, 0 );
 
+    // bench: Simple Add
     benchCall< int8_t, Int >( [&](){ BenchInt::benchSimpleAdd< int8_t >( _int8N ); }, 
                               [&](){ BenchInt::benchSimpleAdd< Int >( _int8C ); }, 
                               "benchSimpleAdd" );
@@ -99,9 +100,10 @@ int main()
                               "benchMulAhead" );
 
     BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
-
-    auto _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 1024 ) );
-    auto _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 1024 ) );
+    
+    // bench: Shell sort
+    auto _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 128 ) );
+    auto _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 128 ) );
 
     benchCall< int8_t, Int >( [&](){ BenchInt::benchShellSort< int8_t >( &_slice_int8N.data()[0], _slice_int8N.size() - 1 ); }, 
                               [&](){ BenchInt::benchShellSort< Int >( &_slice_int8C.data()[0], _slice_int8C.size() - 1 ); }, 
@@ -109,6 +111,7 @@ int main()
 
     BenchInt::benchCmpVec< int8_t, Int >( _int8N, _int8C );
 
+    // bench: Bubble sort
     _slice_int8N = std::vector< int8_t >( _int8N.begin(), _int8N.begin() + ( 4096 * 4 ) );
     _slice_int8C = std::vector< Int >( _int8C.begin(), _int8C.begin() + ( 4096 * 4 ) );
 
@@ -116,6 +119,7 @@ int main()
                               [&](){ BenchInt::benchBubbleSort< Int >( _slice_int8C ); }, 
                               "benchBubbleSort (SLICED)" );
 
+    // bench: Simple Mod
     benchCall< int8_t, Int >( [&](){ BenchInt::benchSimpleMod< int8_t >( _int8N ); }, 
                               [&](){ BenchInt::benchSimpleMod< Int >( _int8C ); }, 
                               "benchSimpleMod" );
