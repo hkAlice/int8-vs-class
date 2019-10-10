@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cassert>
 
+#include "platform.h"
+
 namespace BenchInt
 {
 
