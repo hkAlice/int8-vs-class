@@ -8,6 +8,7 @@
 #include <tuple>
 #include <cassert>
 #include <functional>
+#include <sstream>
 
 #include "../libs/termcolor/include/termcolor/termcolor.hpp"
 
